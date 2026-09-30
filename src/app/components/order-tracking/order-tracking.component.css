@@ -1,0 +1,60 @@
+:host {
+  display: block;
+}
+
+.status-badge {
+  display: inline-flex;
+  height: 2.75rem;
+  width: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.status-neutral {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.status-warning {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.status-info {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.status-success {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.status-dot {
+  display: flex;
+  height: 1.7rem;
+  width: 1.7rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  border: 2px solid #cbd5e1;
+  background: white;
+  color: transparent;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.status-dot.active {
+  border-color: #4f46e5;
+  background: #e0e7ff;
+  color: #4f46e5;
+}
+
+.status-dot.success {
+  border-color: #16a34a;
+  background: #dcfce7;
+  color: #15803d;
+}

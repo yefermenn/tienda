@@ -1,0 +1,79 @@
+<section class="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
+  <div class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+    <div class="mb-6">
+      <p class="text-sm font-medium uppercase tracking-[0.2em] text-indigo-600">Pago</p>
+      <h1 class="mt-2 text-3xl font-bold tracking-tight text-slate-900">Pasarela de pagos</h1>
+    </div>
+
+    <form [formGroup]="checkoutForm" (ngSubmit)="submit()" class="space-y-5">
+      <div>
+        <label for="titular" class="mb-2 block text-sm font-medium text-slate-700">Nombre del titular</label>
+        <input id="titular" formControlName="titular" type="text" class="w-full rounded-xl border border-slate-300 bg-slate-50 px-3 py-3 text-slate-800 outline-none transition focus:border-indigo-500 focus:bg-white" placeholder="Juan Pérez" />
+        @if (checkoutForm.get('titular')?.touched && checkoutForm.get('titular')?.invalid) {
+          <small class="mt-2 block text-sm text-rose-500">Ingresa un nombre válido.</small>
+        }
+      </div>
+
+      <div>
+        <label for="numeroTarjeta" class="mb-2 block text-sm font-medium text-slate-700">Número de tarjeta</label>
+        <input id="numeroTarjeta" formControlName="numeroTarjeta" type="text" inputmode="numeric" maxlength="16" class="w-full rounded-xl border border-slate-300 bg-slate-50 px-3 py-3 text-slate-800 outline-none transition focus:border-indigo-500 focus:bg-white" placeholder="4242 4242 4242 4242" />
+        @if (checkoutForm.get('numeroTarjeta')?.touched && checkoutForm.get('numeroTarjeta')?.invalid) {
+          <small class="mt-2 block text-sm text-rose-500">El número debe contener 16 dígitos.</small>
+        }
+      </div>
+
+      <div class="grid gap-5 md:grid-cols-2">
+        <div>
+          <label for="expiracion" class="mb-2 block text-sm font-medium text-slate-700">Fecha de expiración</label>
+          <input id="expiracion" formControlName="expiracion" type="text" class="w-full rounded-xl border border-slate-300 bg-slate-50 px-3 py-3 text-slate-800 outline-none transition focus:border-indigo-500 focus:bg-white" placeholder="12/28" />
+          @if (checkoutForm.get('expiracion')?.touched && checkoutForm.get('expiracion')?.invalid) {
+            <small class="mt-2 block text-sm text-rose-500">Usa el formato MM/YY.</small>
+          }
+        </div>
+
+        <div>
+          <label for="cvc" class="mb-2 block text-sm font-medium text-slate-700">CVC</label>
+          <input id="cvc" formControlName="cvc" type="text" inputmode="numeric" maxlength="4" class="w-full rounded-xl border border-slate-300 bg-slate-50 px-3 py-3 text-slate-800 outline-none transition focus:border-indigo-500 focus:bg-white" placeholder="123" />
+          @if (checkoutForm.get('cvc')?.touched && checkoutForm.get('cvc')?.invalid) {
+            <small class="mt-2 block text-sm text-rose-500">El CVC debe tener 3 o 4 dígitos.</small>
+          }
+        </div>
+      </div>
+
+      <button
+        type="submit"
+        [disabled]="isProcessing()"
+        class="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-yellow-400 px-4 py-3 text-sm font-bold text-black shadow-sm transition hover:bg-yellow-300 disabled:cursor-not-allowed disabled:bg-slate-300 disabled:text-slate-600"
+      >
+        @if (isProcessing()) {
+          <span class="inline-block h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent"></span>
+          Procesando...
+        } @else {
+          Confirmar y Pagar
+        }
+      </button>
+    </form>
+  </div>
+
+  <aside class="rounded-3xl border border-slate-200 bg-slate-900 p-6 text-slate-50 shadow-sm">
+    <h2 class="text-xl font-bold">Resumen de compra</h2>
+
+    <div class="mt-6 space-y-3 text-sm text-slate-300">
+      <div class="flex items-center justify-between">
+        <span>Subtotal</span>
+        <span>{{ subtotal() | currency:'USD':'symbol':'1.2-2' }}</span>
+      </div>
+      <div class="flex items-center justify-between">
+        <span>Impuestos</span>
+        <span>{{ tax() | currency:'USD':'symbol':'1.2-2' }}</span>
+      </div>
+      <div class="my-3 h-px bg-slate-700"></div>
+      <div class="flex items-center justify-between text-base font-bold text-white">
+        <span>Total</span>
+        <span>{{ total() | currency:'USD':'symbol':'1.2-2' }}</span>
+      </div>
+    </div>
+
+    <p class="mt-6 text-sm text-slate-400">Pago seguro con cifrado de extremo a extremo.</p>
+  </aside>
+</section>

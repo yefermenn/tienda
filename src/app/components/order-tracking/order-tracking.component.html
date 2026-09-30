@@ -1,0 +1,58 @@
+<section class="mx-auto max-w-3xl space-y-6">
+  <div class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+    <div class="flex items-center justify-between gap-4">
+      <div>
+        <p class="text-sm font-medium uppercase tracking-[0.2em] text-indigo-600">Pedido</p>
+        <h1 class="mt-2 text-3xl font-bold tracking-tight text-slate-900">Seguimiento del pedido</h1>
+      </div>
+      <span class="rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-sm font-semibold text-slate-700">
+        #{{ orderId() }}
+      </span>
+    </div>
+
+    @if (currentStatus(); as status) {
+      <div class="mt-8 rounded-2xl border border-slate-200 bg-slate-50 p-5">
+        <div class="flex items-center gap-3">
+          <span class="status-badge status-{{ status.tone }}">
+            {{ status.icon }}
+          </span>
+          <div>
+            <p class="text-xs uppercase tracking-[0.2em] text-slate-500">Estado actual</p>
+            <h2 class="mt-1 text-2xl font-bold text-slate-900">{{ status.label }}</h2>
+          </div>
+        </div>
+
+        <p class="mt-4 text-sm leading-6 text-slate-600">{{ status.message }}</p>
+      </div>
+    }
+  </div>
+
+  <div class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+    <div class="space-y-4">
+      @for (step of timeline; track step.label; let i = $index) {
+        <div class="flex items-center gap-4">
+          <div class="flex flex-col items-center">
+            <div class="status-dot" [class.active]="i <= currentStepIndex" [class.success]="step.label === 'En camino' && i <= currentStepIndex">
+              @if (i <= currentStepIndex) {
+                <span>✓</span>
+              }
+            </div>
+            @if (!$last) {
+              <div class="mt-2 h-8 w-px bg-slate-200" [class.bg-indigo-400]="i < currentStepIndex"></div>
+            }
+          </div>
+
+          <div class="flex-1 rounded-2xl border px-4 py-3" [class.border-indigo-200]="i === currentStepIndex" [class.bg-indigo-50]="i === currentStepIndex" [class.border-slate-200]="i !== currentStepIndex">
+            <div class="flex items-center justify-between gap-3">
+              <div>
+                <p class="text-sm font-semibold text-slate-900">{{ step.label }}</p>
+                <p class="text-xs text-slate-500">{{ step.message }}</p>
+              </div>
+              <span class="text-lg" [class.text-indigo-600]="i === currentStepIndex">{{ step.icon }}</span>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</section>

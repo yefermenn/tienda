@@ -1,0 +1,25 @@
+:host {
+  display: block;
+  min-height: 100vh;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(180deg, #fffdf7 0%, #fff9e6 100%);
+  color: #111111;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  text-decoration: none;
+}
+
+button,
+input {
+  font: inherit;
+}

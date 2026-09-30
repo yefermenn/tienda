@@ -1,0 +1,88 @@
+<section class="space-y-6">
+  <div class="flex items-end justify-between gap-4">
+    <div>
+      <p class="text-sm font-medium uppercase tracking-[0.2em] text-orange-600">Tienda</p>
+      <h1 class="mt-2 text-3xl font-bold tracking-tight text-black">Catálogo de productos</h1>
+    </div>
+    <span class="rounded-full border border-yellow-300 bg-yellow-100 px-3 py-1 text-sm font-semibold text-black">
+      {{ products.length }} artículos
+    </span>
+  </div>
+
+  <div class="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+    @for (product of products; track product.id) {
+      <article
+        class="product-card group overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm transition duration-200"
+        role="button"
+        tabindex="0"
+        (click)="openProduct(product)"
+        (keydown)="onCardKeydown($event, product)"
+      >
+        <div class="relative overflow-hidden">
+          <img [src]="product.imagen" [alt]="product.nombre" class="h-56 w-full object-cover transition duration-300 group-hover:scale-105" />
+          <span class="absolute left-4 top-4 rounded-full bg-black/75 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-yellow-300">
+            1 disponible
+          </span>
+        </div>
+
+        <div class="space-y-4 p-5">
+          <div class="flex items-start justify-between gap-3">
+            <h2 class="text-xl font-bold text-black">{{ product.nombre }}</h2>
+            <span class="text-lg font-bold text-orange-600">{{ product.precio | currency:'USD':'symbol':'1.2-2' }}</span>
+          </div>
+
+          <p class="text-sm leading-6 text-slate-700">{{ product.descripcion }}</p>
+        </div>
+      </article>
+    }
+  </div>
+</section>
+
+@if (selectedProduct(); as product) {
+  <div class="product-visor-backdrop" (click)="closeProduct()">
+    <div class="product-visor" (click)="$event.stopPropagation()">
+      <button type="button" class="product-visor-close" (click)="closeProduct()" aria-label="Cerrar producto">×</button>
+
+      <div class="product-visor-grid">
+        <div class="product-gallery">
+          <img [src]="(product.galeria ?? [product.imagen])[selectedImageIndex()]" [alt]="product.nombre" class="product-gallery-main" />
+
+          <div class="product-gallery-thumbs">
+            @for (image of product.galeria ?? [product.imagen]; track image; let i = $index) {
+              <button
+                type="button"
+                class="product-gallery-thumb"
+                [class.active]="i === selectedImageIndex()"
+                (click)="selectImage(i)"
+              >
+                <img [src]="image" [alt]="product.nombre + ' vista ' + (i + 1)" />
+              </button>
+            }
+          </div>
+        </div>
+
+        <div class="product-visor-content">
+          <p class="text-xs font-semibold uppercase tracking-[0.2em] text-orange-600">Producto</p>
+          <h2 class="mt-3 text-3xl font-black text-black">{{ product.nombre }}</h2>
+          <p class="mt-4 text-2xl font-bold text-orange-600">{{ product.precio | currency:'USD':'symbol':'1.2-2' }}</p>
+          <p class="mt-5 text-base leading-7 text-slate-700">{{ product.descripcion }}</p>
+
+          <div class="mt-6 rounded-2xl border border-yellow-300 bg-yellow-50 p-4 text-sm text-black">
+            <strong class="font-bold">Disponibilidad:</strong> Solo queda 1 unidad en stock.
+          </div>
+
+          <button
+            type="button"
+            [disabled]="isProductInCart(product.id)"
+            (click)="addToCart(product)"
+            class="mt-8 inline-flex w-full items-center justify-center rounded-2xl px-5 py-4 text-base font-bold text-black shadow-sm transition disabled:cursor-not-allowed disabled:bg-slate-300 disabled:text-slate-600"
+            [class.bg-yellow-400]="!isProductInCart(product.id)"
+            [class.hover:bg-yellow-300]="!isProductInCart(product.id)"
+            [class.bg-slate-200]="isProductInCart(product.id)">
+            {{ isProductInCart(product.id) ? 'Agregado' : 'Agregar al carrito' }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+}

@@ -1,0 +1,124 @@
+<section class="vehicle-config-panel" aria-label="Configuración del vehículo robótico">
+  <div class="vehicle-header">
+    <div>
+      <p class="eyebrow">Tuning de movimiento</p>
+      <h3>Vehículo</h3>
+    </div>
+    <span class="status-badge">Tiempo real</span>
+  </div>
+
+  <form [formGroup]="form" class="vehicle-form">
+    <div class="blueprint-scene" aria-label="Plano del vehículo">
+      <div class="blueprint-grid"></div>
+      <div class="svg-slot" aria-label="Espacio para SVG del vehículo">
+        <svg
+          width="100%"
+          height="100%"
+          viewBox="0 0 157.89561 116.97432"
+          preserveAspectRatio="xMidYMid meet"
+          xmlns="http://www.w3.org/2000/svg"
+          role="img"
+          aria-label="Vehículo del robot"
+        >
+          <g id="layer1" transform="translate(-24.057091,-49.199386)">
+            <path
+              fill="none"
+              stroke="#7dd3fc"
+              stroke-width="0.726485"
+              stroke-dasharray="none"
+              stroke-opacity="0.901961"
+              d="m 69.952096,140.01464 c -4.779481,0 -32.103194,-15.77535 -34.492935,-19.9145 -2.389741,-4.13916 -2.389741,-35.689861 -1e-6,-39.829013 2.389741,-4.139152 29.713453,-19.914506 34.492934,-19.914506 4.779481,0 32.103196,15.775352 34.492936,19.914504 2.38974,4.139152 2.38974,35.689855 0,39.829005 -2.38974,4.13916 -29.713453,19.91451 -34.492934,19.91451 z"
+              transform="matrix(1.584088,0,0,1.4551849,-7.6605758,-38.102072)"
+            />
+            <rect
+              fill="none"
+              stroke="#7dd3fc"
+              stroke-width="1.229"
+              stroke-dasharray="none"
+              stroke-opacity="0.901961"
+              x="93.368263"
+              y="110.26347"
+              width="19.859282"
+              height="47.425148"
+              ry="4.4461079"
+            />
+            <rect
+              fill="none"
+              stroke="#7dd3fc"
+              stroke-width="1.103"
+              stroke-dasharray="none"
+              stroke-opacity="0.901961"
+              x="68.173645"
+              y="64.616768"
+              width="69.952095"
+              height="21.637724"
+              ry="4.4461079"
+            />
+            <rect
+              fill="none"
+              stroke="#7dd3fc"
+              stroke-width="1.103"
+              stroke-dasharray="none"
+              stroke-opacity="0.901961"
+              x="161.24551"
+              y="88.62574"
+              width="20.155687"
+              height="37.347305"
+              ry="4.4461079"
+            />
+            <rect
+              fill="none"
+              stroke="#7dd3fc"
+              stroke-width="1.103"
+              stroke-dasharray="none"
+              stroke-opacity="0.901961"
+              x="24.608591"
+              y="89.791573"
+              width="20.155687"
+              height="37.347305"
+              ry="4.4461079"
+            />
+          </g>
+        </svg>
+      </div>
+
+      <div class="control control-left" aria-label="Velocidad giro izquierda">
+        <label for="velocidadGiroIzquierda">Velocidad Giro Izquierda</label>
+        <input
+          id="velocidadGiroIzquierda"
+          type="text"
+          inputmode="decimal"
+          placeholder="0.0"
+          formControlName="velocidadGiroIzquierda"
+        />
+      </div>
+
+      <div class="control control-front" aria-label="Corrección giro frontal">
+        <label for="correccionGiroFrontal">Corrección Giro Frontal</label>
+        <input
+          id="correccionGiroFrontal"
+          type="text"
+          inputmode="decimal"
+          placeholder="0.0"
+          formControlName="correccionGiroFrontal"
+        />
+      </div>
+
+      <div class="control control-right" aria-label="Velocidad giro derecha">
+        <label for="velocidadGiroDerecha">Velocidad Giro Derecha</label>
+        <input
+          id="velocidadGiroDerecha"
+          type="text"
+          inputmode="decimal"
+          placeholder="0.0"
+          formControlName="velocidadGiroDerecha"
+        />
+      </div>
+    </div>
+
+    <div class="action-row">
+      <button type="button" class="primary-action" (click)="enviar()">Enviar</button>
+      <button type="button" class="secondary-action" (click)="test()">Test</button>
+    </div>
+  </form>
+</section>

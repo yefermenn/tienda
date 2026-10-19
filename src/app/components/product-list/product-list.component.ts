@@ -82,6 +82,32 @@ const mockProducts: Product[] = [
     ],
     descripcion: 'Diseño ergonómico y compartimentos inteligentes para moverse.',
   },
+  {
+    id: 7,
+    nombre: 'Mochila Travel Flex',
+    precio: 119.0,
+    imagen:
+      'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=900&q=80',
+    galeria: [
+      'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=900&q=80',
+      'https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?auto=format&fit=crop&w=900&q=80',
+      'https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=900&q=80',
+    ],
+    descripcion: 'Diseño ergonómico y compartimentos inteligentes para moverse.',
+  },
+  {
+    id: 8,
+    nombre: 'Mochila Travel Flex',
+    precio: 119.0,
+    imagen:
+      'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=900&q=80',
+    galeria: [
+      'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=900&q=80',
+      'https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?auto=format&fit=crop&w=900&q=80',
+      'https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=900&q=80',
+    ],
+    descripcion: 'Diseño ergonómico y compartimentos inteligentes para moverse.',
+  },
 ];
 
 @Component({

@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { BodegaComponent } from './components/bodega/bodega.component';
 import { CartComponent } from './components/cart/cart.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { OrderTrackingComponent } from './components/order-tracking/order-tracking.component';
@@ -13,6 +14,15 @@ export const routes: Routes = [
   {
     path: 'products',
     component: ProductListComponent,
+  },
+  {
+    path: 'configuracion',
+    component: BodegaComponent,
+  },
+  {
+    path: 'bodega',
+    redirectTo: 'configuracion',
+    pathMatch: 'full',
   },
   {
     path: 'cart',

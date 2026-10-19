@@ -1,0 +1,106 @@
+<section class="warehouse-shell">
+  <header class="warehouse-header">
+    <div>
+      <p class="eyebrow">Configuración del sistema</p>
+      <h2>Configuración</h2>
+    </div>
+
+    @if (activeTab() === 'bodega') {
+      <div class="controls">
+        <button type="button" class="primary" (click)="calculateRoute()">
+          Calcular Ruta
+        </button>
+        <button type="button" class="secondary" (click)="clearWarehouse()">
+          Limpiar Bodega
+        </button>
+      </div>
+    }
+  </header>
+
+  <div class="config-tabs" aria-label="Subsecciones de configuración">
+    <button type="button" class="tab-button" [class.active]="activeTab() === 'bodega'" (click)="setTab('bodega')">
+      Bodega
+    </button>
+    <button type="button" class="tab-button" [class.active]="activeTab() === 'vehiculo'" (click)="setTab('vehiculo')">
+      Vehículo
+    </button>
+  </div>
+
+  @if (activeTab() === 'bodega') {
+    @if (errorMessage()) {
+      <div class="alert" role="alert">
+        {{ errorMessage() }}
+      </div>
+    }
+
+    <div class="warehouse-layout">
+      <aside class="warehouse-tools" aria-label="Herramientas de estanterías">
+        <div class="tool-card">
+          <h3>Estanterías</h3>
+          <div
+            class="shelf-drag-card"
+            draggable="true"
+            (dragstart)="onShelfDragStart($event)"
+            (dragend)="onShelfDragEnd()"
+          >
+            <span class="shelf-preview"></span>
+            <span>Arrastra al tablero</span>
+          </div>
+        </div>
+
+        <div class="tool-card">
+          <h3>Instrucciones</h3>
+          <ul>
+            <li>Arrastra una estantería hacia una celda libre.</li>
+            <li>Haz clic sobre una estantería para quitarla.</li>
+            <li>No puedes ocupar la zona de origen ni la de carga.</li>
+          </ul>
+        </div>
+      </aside>
+
+      <div class="board-panel">
+        <div
+          class="warehouse-grid"
+          [style.grid-template-columns]="boardTemplate()"
+          [style.grid-template-rows]="boardTemplate()"
+        >
+          @for (row of grid(); track $index; let r = $index) {
+            @for (cell of row; track $index; let c = $index) {
+              <button
+                type="button"
+                class="cell"
+                [class.is-obstacle]="isObstacle(r, c)"
+                [class.is-start]="isStartCell(r, c)"
+                [class.is-goal]="isGoalCell(r, c)"
+                [class.is-path]="isPathCell(r, c)"
+                [class.is-robot]="isRobotPosition(r, c)"
+                [disabled]="isProtectedCell(r, c)"
+                (click)="toggleObstacleCell(r, c)"
+                (dragover)="allowDrop($event)"
+                (drop)="handleDrop($event, r, c)"
+              >
+                @if (isStartCell(r, c)) {
+                  <span class="cell-label start-label">Estantería Inteligente</span>
+                }
+
+                @if (isGoalCell(r, c)) {
+                  <span class="cell-label goal-label">Zona de Carga</span>
+                }
+
+                @if (isObstacle(r, c) && !isStartCell(r, c) && !isGoalCell(r, c)) {
+                  <span class="shelf-block"></span>
+                }
+
+                @if (isRobotPosition(r, c) && !isGoalCell(r, c)) {
+                  <span class="robot-marker">R</span>
+                }
+              </button>
+            }
+          }
+        </div>
+      </div>
+    </div>
+  } @else {
+    <app-vehiculo-config [config]="vehicleConfig()" />
+  }
+</section>
